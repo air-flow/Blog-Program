@@ -1,6 +1,6 @@
 # Blog-Program
 
-Blog 作成の支援プログラムを作成する。
+[自分の Blog](https://updraft.hatenadiary.com/) の支援プログラムを作成する。
 
 # DEMO
 
