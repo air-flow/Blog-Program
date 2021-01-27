@@ -131,3 +131,4 @@ dmypy.json
 #Add your own
 
 /mine
+/.vscode
