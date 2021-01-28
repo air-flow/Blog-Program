@@ -1,4 +1,5 @@
 import os
+import re
 
 
 def BeforeDivProgram(parameter_list):
@@ -17,7 +18,24 @@ def cd():
     os.chdir(os.path.dirname(__file__))
 
 
+class Tag():
+    tag_list = [
+        {"```": '<div class="code-title" data-title="{0}">\n'},
+        {"```": '"</div>\n"'}
+    ]
+
+    def __init__(self, test):
+        self.test = test
+
+
+def test():
+    s = '"""sql'
+    m = re.search(r'^("){3}', s)
+    print(m)
+
+
 if __name__ == "__main__":
     # TODO tag add function
     cd()
-    print(TextReadPath())
+    # print(TextReadPath())
+    test()
