@@ -16,7 +16,7 @@ def cd():
 cd()
 sys.path.append(os.path.abspath(".."))
 from tag import div
-div.test()
+# div.test()
 
 
 def ElementSetUp():
