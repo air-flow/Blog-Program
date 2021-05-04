@@ -4,6 +4,8 @@ import PySimpleGUI as sg
 import pprint
 import inspect
 import sys
+import shutil
+import pyperclip
 sg.theme('DarkAmber')
 
 
@@ -32,8 +34,8 @@ def ElementSetUp():
               [sg.Text('実行後ファイル移動先path選択'), sg.Combo(
                   AfterExecutionFilePath, default_value=AfterExecutionFilePath[0])],
               [sg.Checkbox('クリップボードにコピー', default=True)],
-              [sg.Button('exec'), sg.Button('Cancel')]
-              #   []
+              [sg.Button('exec'), sg.Button('Cancel')],
+              #   [sg.popup("test")]
               ]
     return layout, exec_file_dict
 
@@ -67,26 +69,49 @@ def CreatedFileCdPathList(path=""):
     # files = os.listdir(path+"/created")
     # files_dir = [f for f in files if os.path.isdir(os.path.join(path, f))]
     # pprint.pprint(md)
+    created_path.append(False)
     return created_path
 
 
 def TagAdd(file_name):
-    div.main(file_name)
-    # print(exec_file_dict[file_name])
+    result = div.main(file_name)
+    if result == "end":
+        return True
+    return False
+
+
+def FileChangeDirectory(file_name, cd_path):
+    new_path = shutil.move(file_name, cd_path)
+    return new_path
+
+
+def ClipCopyBlogText(file_path):
+    try:
+        with open(file_path, encoding="utf-8") as target:
+            text = target.read()
+        pyperclip.copy(text)
+    except Exception as Expe:
+        return False
+    return True
 
 
 def main():
     layout, exec_file_dict = ElementSetUp()
     window = sg.Window('Window Title', layout)
-    # Event Loop to process "events" and get the "values" of the inputs
     while True:
         event, values = window.read()
+        result_flag = False
         if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
             break
         if event == "exec":
             tag_file_name = values[0]
-            TagAdd(exec_file_dict[tag_file_name])
-        print('You entered ', values, event)
+            result_flag = TagAdd(exec_file_dict[tag_file_name])
+        if result_flag and values[1] != 0:
+            result_flag = FileChangeDirectory(
+                exec_file_dict[tag_file_name], values[1])
+        if result_flag and values[2] != 0:
+            ClipCopyBlogText(result_flag)
+            break
 
     window.close()
 
@@ -94,7 +119,6 @@ def main():
 if __name__ == "__main__":
     main()
     # cd()
-    pass
     # ElementSetUp()
     # CreatedFileCdPathList()
     # GetFileBlogList()
