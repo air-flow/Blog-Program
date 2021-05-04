@@ -27,15 +27,14 @@ def ElementSetUp():
     # pprint.pprint(dict(zip(exec_file_list, temp)))
     exec_file_dict = dict(zip(exec_file_list, temp))
     AfterExecutionFilePath = CreatedFileCdPathList()
-    layout = [[sg.Text('Some text on Row 1')],
+    layout = [[sg.Text('タグ追加プログラム')],
               #   [sg.Text('Enter something on Row 2'), sg.InputText()],
               [sg.Text('実行ファイル選択'), sg.Combo(
                   exec_file_list, default_value=exec_file_list[0])],
               [sg.Text('実行後ファイル移動先path選択'), sg.Combo(
                   AfterExecutionFilePath, default_value=AfterExecutionFilePath[0])],
               [sg.Checkbox('クリップボードにコピー', default=True)],
-              [sg.Button('exec'), sg.Button('Cancel')],
-              #   [sg.popup("test")]
+              [sg.Button('Exec'), sg.Button('Cancel')],
               ]
     return layout, exec_file_dict
 
@@ -97,7 +96,7 @@ def ClipCopyBlogText(file_path):
 
 def main():
     layout, exec_file_dict = ElementSetUp()
-    window = sg.Window('Window Title', layout)
+    window = sg.Window('タグ追加プログラム', layout)
     while True:
         event, values = window.read()
         result_flag = False
