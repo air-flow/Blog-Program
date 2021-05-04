@@ -3,7 +3,7 @@ import os
 # path = "../MySQL監視.md"
 
 
-def FileRead():
+def FileRead(path):
     with open(path, mode="r", encoding="utf-8") as f:
         l = f.readlines()
     return l
@@ -42,10 +42,11 @@ def SearchName(text):
         return "text"
 
 
-def FileWrite(l):
+def FileWrite(l, path):
     with open(path, mode="w", encoding="utf-8") as f:
         f.writelines(l)
-    print("END")
+    # print("END")
+    return "end"
 
 
 def insertTest():
@@ -61,9 +62,9 @@ def cd():
 
 def main(path):
     cd()
-    l = FileRead()
+    l = FileRead(path)
     l = Divappend(l)
-    FileWrite(l)
+    return FileWrite(l, path)
 
 
 def test():
