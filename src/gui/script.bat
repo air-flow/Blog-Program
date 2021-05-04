@@ -1,0 +1,1 @@
+python C:\Users\81902\Documents\GitHub\Blog-Program\src\gui\main.py

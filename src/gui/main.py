@@ -102,7 +102,7 @@ def main():
         result_flag = False
         if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
             break
-        if event == "exec":
+        if event == "Exec":
             tag_file_name = values[0]
             result_flag = TagAdd(exec_file_dict[tag_file_name])
         if result_flag and values[1] != 0:
