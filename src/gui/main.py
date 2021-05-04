@@ -1,13 +1,19 @@
 import os
 import glob
-from tkinter.constants import TRUE
 import PySimpleGUI as sg
 import pprint
+import inspect
+import sys
 sg.theme('DarkAmber')
 
 
 def cd():
+    # print(inspect.stack()[1].filename)
+    # print(inspect.stack()[1].function)
     os.chdir(os.path.dirname(__file__))
+    sys.path.append(os.path.abspath(".."))
+    from tag import div
+    # div.test()
 
 
 def ElementSetUp():
@@ -36,7 +42,8 @@ def GetFileReadText():
     return text
 
 
-def GetFileBlogList(path=GetFileReadText()):
+def GetFileBlogList(path=""):
+    path = GetFileReadText()
     max_value = 2
     main_blog_files = glob.glob(path+"/*.md")
     book_blog_files = glob.glob(path+"/book/*")
@@ -49,7 +56,8 @@ def GetFileBlogList(path=GetFileReadText()):
     return (main_blog_files[:max_value]+book_blog_files[:max_value])
 
 
-def CreatedFileCdPathList(path=GetFileReadText()):
+def CreatedFileCdPathList(path=""):
+    path = GetFileReadText()
     path = path + "\\created"
     created_path = [path]
     created_path += glob.glob(path+"/*")
@@ -68,15 +76,17 @@ def main():
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
             break
-        if exec:
-            pass
+        if event == "exec":
+            print("test")
         print('You entered ', values, event)
 
     window.close()
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    cd()
+    pass
     # ElementSetUp()
     # CreatedFileCdPathList()
     # GetFileBlogList()

@@ -24,7 +24,6 @@ def ElementSetUp():
                   AfterExecutionFilePath, default_value=AfterExecutionFilePath[0])],
               [sg.Checkbox('クリップボードにコピー', default=TRUE)],
               [sg.Button('exec'), sg.Button('Cancel')]
-              #   []
               ]
     return layout
 
@@ -56,9 +55,14 @@ def CreatedFileCdPathList(path=GetFileReadText()):
     created_path = [i for i in created_path if "md" not in i]
     # files = os.listdir(path+"/created")
     # files_dir = [f for f in files if os.path.isdir(os.path.join(path, f))]
-    # pprint.pprint(md)
+    # pprint.pprint(md)c
     return created_path
 
+def funcname(parameter_list):
+    """
+    docstring
+    """
+    pass
 
 def main():
     layout = ElementSetUp()
@@ -68,8 +72,8 @@ def main():
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
             break
-        if exec:
-            pass
+        if event == "exec":
+            print(event)
         print('You entered ', values, event)
 
     window.close()
