@@ -1,6 +1,6 @@
 import os
 
-path = "../MySQL監視.md"
+# path = "../MySQL監視.md"
 
 
 def FileRead():
@@ -59,7 +59,7 @@ def cd():
     os.chdir(os.path.dirname(__file__))
 
 
-def main():
+def main(path):
     cd()
     l = FileRead()
     l = Divappend(l)
