@@ -10,8 +10,6 @@ sg.theme('DarkAmber')
 
 
 def cd():
-    # print(inspect.stack()[1].filename)
-    # print(inspect.stack()[1].function)
     os.chdir(os.path.dirname(__file__))
 
 
@@ -47,27 +45,21 @@ def GetFileReadText():
 
 def GetFileBlogList(path=""):
     path = GetFileReadText()
-    max_value = 2
-    main_blog_files = glob.glob(path + "/*.md")
-    book_blog_files = glob.glob(path + "/book/*")
-    main_blog_files = sorted(
-        main_blog_files, key=lambda f: os.stat(f).st_mtime, reverse=True)
-    book_blog_files = sorted(
-        book_blog_files, key=lambda f: os.stat(f).st_mtime, reverse=True)
-    # for file in (main_blog_files[:2]+book_blog_files[:2]):
-    #     print(file)
-    return (main_blog_files[:max_value] + book_blog_files[:max_value])
+    max_value = 10
+    blog_files = []
+    blog_files += glob.glob(path + "/*.md")
+    blog_files += glob.glob(path + "/9_Doing/*/*")
+    blog_files = sorted(
+        blog_files, key=lambda f: os.stat(f).st_mtime, reverse=True)
+    return blog_files[:max_value]
 
 
 def CreatedFileCdPathList(path=""):
     path = GetFileReadText()
-    path = path + "\\created"
+    path = path + "\\0_created"
     created_path = [path]
     created_path += glob.glob(path + "/*")
     created_path = [i for i in created_path if "md" not in i]
-    # files = os.listdir(path+"/created")
-    # files_dir = [f for f in files if os.path.isdir(os.path.join(path, f))]
-    # pprint.pprint(md)
     created_path.append(False)
     return created_path
 
@@ -100,7 +92,7 @@ def main():
     while True:
         event, values = window.read()
         result_flag = False
-        if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
+        if event == sg.WIN_CLOSED or event == 'Cancel':
             break
         if event == "Exec":
             tag_file_name = values[0]
@@ -121,3 +113,4 @@ if __name__ == "__main__":
     # ElementSetUp()
     # CreatedFileCdPathList()
     # GetFileBlogList()
+    # print(GetFileBlogList(path=GetFileReadText()))
